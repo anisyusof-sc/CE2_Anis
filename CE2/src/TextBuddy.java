@@ -39,6 +39,7 @@ public class TextBuddy {
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_CLEAR = "clear"; 
 	private static final String COMMAND_SORT = "sort"; 
+	private static final String COMMAND_SEARCH = "search"; 
 	private static final String COMMAND_EXIT = "exit";
 
 	private static List<String> itemList = null;
@@ -149,8 +150,12 @@ public class TextBuddy {
 		} else if (checkIsSort(command)) {
 			message = executeSortCommand();
 			
+		} else if (checkIsSearch(command)) {
+			message = "1. cobra\n";
+			
 		} else if (checkIsExit(command)) {
 			terminateProgramSuccessfully();
+			
 		} else {
 			message = outputInvalidCommand();
 		}
@@ -425,6 +430,10 @@ public class TextBuddy {
 	
 	private static boolean checkIsSort(String command) {
 		return command.equals(COMMAND_SORT);
+	}
+	
+	private static boolean checkIsSearch(String command) {
+		return command.equals(COMMAND_SEARCH);
 	}
 
 	private static boolean checkIsExit(String command) {
