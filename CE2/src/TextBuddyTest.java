@@ -156,4 +156,13 @@ public class TextBuddyTest {
 					
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
+	
+	@Test
+	public void testB6SearchItem() {
+										
+		String testCaseInput = "search cobra son";
+		String expectedOutput = "1. cobra son" + newLine;
+					
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
+	}
 }
