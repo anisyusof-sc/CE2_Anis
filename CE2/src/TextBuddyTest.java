@@ -28,8 +28,8 @@ public class TextBuddyTest {
 	@Test
 	public void testA1AddItem() {
 		
-		String testCaseInput = "add gorilla";
-		String expectedOutput = "added to mytextfile.txt: \"gorilla\"";
+		String testCaseInput = "add gorilla son";
+		String expectedOutput = "added to mytextfile.txt: \"gorilla son\"";
 		
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
@@ -47,7 +47,7 @@ public class TextBuddyTest {
 	public void testA3DisplayListOfItem() {
 		
 		String testCaseInput = "display";
-		String expectedOutput = "1. gorilla" + newLine;
+		String expectedOutput = "1. gorilla son" + newLine;
 					
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
@@ -55,8 +55,8 @@ public class TextBuddyTest {
 	@Test
 	public void testA4AddItem() {
 		
-		String testCaseInput = "add anaconda";
-		String expectedOutput = "added to mytextfile.txt: \"anaconda\"";
+		String testCaseInput = "add anaconda son";
+		String expectedOutput = "added to mytextfile.txt: \"anaconda son\"";
 		
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
@@ -64,8 +64,8 @@ public class TextBuddyTest {
 	@Test
 	public void testA5AddItem() {
 				
-		String testCaseInput = "add zebra";
-		String expectedOutput = "added to mytextfile.txt: \"zebra\"";
+		String testCaseInput = "add zebra daughter";
+		String expectedOutput = "added to mytextfile.txt: \"zebra daughter\"";
 		
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
@@ -83,9 +83,9 @@ public class TextBuddyTest {
 	public void testA7DisplayListOfItem() {
 		
 		String testCaseInput = "display";
-		String expectedOutput = "1. anaconda" + newLine;
-		expectedOutput += "2. gorilla" + newLine;
-		expectedOutput += "3. zebra" + newLine;
+		String expectedOutput = "1. anaconda son" + newLine;
+		expectedOutput += "2. gorilla son" + newLine;
+		expectedOutput += "3. zebra daughter" + newLine;
 					
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
@@ -93,7 +93,7 @@ public class TextBuddyTest {
 	@Test
 	public void testA8DeleteItem() {	
 		String testCaseInput = "delete 1";
-		String expectedOutput = "deleted from mytextfile.txt: \"anaconda\"";
+		String expectedOutput = "deleted from mytextfile.txt: \"anaconda son\"";
 							
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
@@ -101,8 +101,8 @@ public class TextBuddyTest {
 	@Test
 	public void testA9AddItem() {
 						
-		String testCaseInput = "add cobra";
-		String expectedOutput = "added to mytextfile.txt: \"cobra\"";
+		String testCaseInput = "add cobra son";
+		String expectedOutput = "added to mytextfile.txt: \"cobra son\"";
 		
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
@@ -111,9 +111,9 @@ public class TextBuddyTest {
 	public void testB1DisplayListOfItem() {
 										
 		String testCaseInput = "display";
-		String expectedOutput = "1. gorilla" + newLine;
-		expectedOutput += "2. zebra" + newLine;
-		expectedOutput += "3. cobra" + newLine;
+		String expectedOutput = "1. gorilla son" + newLine;
+		expectedOutput += "2. zebra daughter" + newLine;
+		expectedOutput += "3. cobra son" + newLine;
 					
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
@@ -131,9 +131,18 @@ public class TextBuddyTest {
 	public void testB3DisplayListOfItem() {
 										
 		String testCaseInput = "display";
+		String expectedOutput = "1. cobra son" + newLine;
+		expectedOutput += "2. gorilla son" + newLine;
+		expectedOutput += "3. zebra daughter" + newLine;
+					
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
+	}
+	
+	@Test
+	public void testB4SearchItem() {
+										
+		String testCaseInput = "search cobra";
 		String expectedOutput = "1. cobra" + newLine;
-		expectedOutput += "2. gorilla" + newLine;
-		expectedOutput += "3. zebra" + newLine;
 					
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
