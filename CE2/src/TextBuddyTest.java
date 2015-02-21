@@ -1,4 +1,6 @@
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 
@@ -15,9 +17,19 @@ public class TextBuddyTest {
 		fileNameArr[0] = fileName;
 	}
 	
-	@Test
-	public void test() {
+	private void executeUnitTestEquals(String[] fileNameArr, String testCaseInput, String expectedOutput) {
 		
+		result = TextBuddy.executeJunitTest(fileNameArr, testCaseInput);
+		assertEquals(expectedOutput, result);
+	}
+	
+	@Test
+	public void testAddItem1() {
+		
+		String testCaseInput = "add gorilla";
+		String expectedOutput = "added to mytextfile.txt: \"gorilla\"";
+		
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
 
 }
