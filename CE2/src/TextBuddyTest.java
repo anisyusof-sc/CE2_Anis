@@ -126,4 +126,15 @@ public class TextBuddyTest {
 		
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
+	
+	@Test
+	public void testB3DisplayListOfItem() {
+										
+		String testCaseInput = "display";
+		String expectedOutput = "1. cobra" + newLine;
+		expectedOutput += "2. gorilla" + newLine;
+		expectedOutput += "3. zebra" + newLine;
+					
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
+	}
 }
