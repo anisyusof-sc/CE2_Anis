@@ -172,7 +172,7 @@ public class TextBuddy {
 	
 	private static String executeDisplayCommand() {
 		
-		String message = null;
+		String message = "";
 		
 		if (itemList.isEmpty()) {
 			message = outputEmptyFileMessage();
