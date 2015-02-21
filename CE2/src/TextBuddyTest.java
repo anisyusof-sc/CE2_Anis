@@ -69,4 +69,13 @@ public class TextBuddyTest {
 		
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
+	
+	@Test
+	public void test6SortItem() {
+						
+		String testCaseInput = "sort";
+		String expectedOutput = "records sorted.";
+			
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
+	}
 }
