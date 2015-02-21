@@ -60,4 +60,13 @@ public class TextBuddyTest {
 		
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
+	
+	@Test
+	public void test5AddItem() {
+				
+		String testCaseInput = "add zebra";
+		String expectedOutput = "added to mytextfile.txt: \"zebra\"";
+		
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
+	}
 }
