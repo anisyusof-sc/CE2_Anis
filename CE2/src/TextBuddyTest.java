@@ -26,7 +26,7 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void test1AddItem() {
+	public void testA1AddItem() {
 		
 		String testCaseInput = "add gorilla";
 		String expectedOutput = "added to mytextfile.txt: \"gorilla\"";
@@ -35,7 +35,7 @@ public class TextBuddyTest {
 	}
 
 	@Test
-	public void test2SortItem() {
+	public void testA2SortItem() {
 		
 		String testCaseInput = "sort";
 		String expectedOutput = "records sorted.";
@@ -44,7 +44,7 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void test3DisplayListOfItem() {
+	public void testA3DisplayListOfItem() {
 		
 		String testCaseInput = "display";
 		String expectedOutput = "1. gorilla" + newLine;
@@ -53,7 +53,7 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void test4AddItem() {
+	public void testA4AddItem() {
 		
 		String testCaseInput = "add anaconda";
 		String expectedOutput = "added to mytextfile.txt: \"anaconda\"";
@@ -62,7 +62,7 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void test5AddItem() {
+	public void testA5AddItem() {
 				
 		String testCaseInput = "add zebra";
 		String expectedOutput = "added to mytextfile.txt: \"zebra\"";
@@ -71,7 +71,7 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void test6SortItem() {
+	public void testA6SortItem() {
 						
 		String testCaseInput = "sort";
 		String expectedOutput = "records sorted.";
@@ -80,7 +80,7 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void test7DisplayListOfItem() {
+	public void testA7DisplayListOfItem() {
 		
 		String testCaseInput = "display";
 		String expectedOutput = "1. anaconda" + newLine;
@@ -91,7 +91,7 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void test8DeleteItem() {	
+	public void testA8DeleteItem() {	
 		String testCaseInput = "delete 1";
 		String expectedOutput = "deleted from mytextfile.txt: \"anaconda\"";
 							
@@ -99,11 +99,22 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void test9AddItem() {
+	public void testA9AddItem() {
 						
 		String testCaseInput = "add cobra";
 		String expectedOutput = "added to mytextfile.txt: \"cobra\"";
 		
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
+	}
+	
+	@Test
+	public void testB1DisplayListOfItem() {
+										
+		String testCaseInput = "display";
+		String expectedOutput = "1. gorilla" + newLine;
+		expectedOutput += "2. zebra" + newLine;
+		expectedOutput += "3. cobra" + newLine;
+					
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
 }
