@@ -293,7 +293,7 @@ public class TextBuddy {
 			}
 		}
 		
-		searchResultMessage(message);
+		message = searchResultMessage(message);
 		
 		return message;
 	}
@@ -444,6 +444,10 @@ public class TextBuddy {
 	
 	private static String searchResultMessage(String message) {
 		
+		if(checkIsEmptyString(message)) {
+			message = "No record(s) found.";
+		}
+		
 		System.out.println(message);
 		
 		return message;
@@ -488,6 +492,6 @@ public class TextBuddy {
 	}
 	
 	private static boolean checkIsEmptyString(String str) {
-		return str.equals("");
+		return str.isEmpty();
 	}
 }
