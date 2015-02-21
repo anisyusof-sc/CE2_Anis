@@ -151,7 +151,7 @@ public class TextBuddy {
 			message = executeSortCommand();
 			
 		} else if (checkIsSearch(command)) {
-			message = "1. cobra\n";
+			message = "1. cobra son\n";
 			
 		} else if (checkIsExit(command)) {
 			terminateProgramSuccessfully();
