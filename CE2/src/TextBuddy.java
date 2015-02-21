@@ -216,7 +216,7 @@ public class TextBuddy {
 		String message;
 		
 		Collections.sort(itemList);
-		message = "records sorted.";
+		message = successfullySortedMessage();
 		saveListIntoFile();
 		
 		return message;
@@ -387,6 +387,14 @@ public class TextBuddy {
 
 	private static String successfullyClearedMessage() {
 		String message = "all content deleted from " + fileName;
+
+		System.out.println(message);
+		
+		return message;
+	}
+	
+	private static String successfullySortedMessage() {
+		String message = "records sorted.";
 
 		System.out.println(message);
 		

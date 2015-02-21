@@ -89,4 +89,12 @@ public class TextBuddyTest {
 					
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
+	
+	@Test
+	public void test8DeleteItem() {	
+		String testCaseInput = "delete 1";
+		String expectedOutput = "deleted from mytextfile.txt: \"anaconda\"";
+							
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
+	}
 }
