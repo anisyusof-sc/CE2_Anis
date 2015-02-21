@@ -272,9 +272,10 @@ public class TextBuddy {
 		return message;
 	}
 	
-	private static String findItemInList(String search) {
+	private static String findItemInList (String search) {
 		
 		String message = "";
+		String trimmedSearch = search.trim();
 		
 		int searchCount = 0;
 		int numberingOffset = searchCount + 1;
@@ -282,8 +283,8 @@ public class TextBuddy {
 		for(int i = 0; i < itemList.size(); i++) {
 			
 			String currentRecord = itemList.get(i);
-			
-			if(checkIsKeywordExistInRecord(currentRecord, search)) {
+
+			if(checkIsKeywordExistInRecord(currentRecord, trimmedSearch)) {
 				
 				message += numberingOffset + ". " + currentRecord + "\n";
 				
