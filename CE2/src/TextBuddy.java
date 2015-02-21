@@ -25,11 +25,9 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.FileOutputStream;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -58,6 +56,34 @@ public class TextBuddy {
 		inputCommand();
 
 		terminateProgramSuccessfully();
+	}
+	
+	// **************************************************************
+	
+	public static String executeJunitTest(String[] fileNameArr, String command) {
+
+		String message;
+		
+		checkValidArgsLength(fileNameArr);
+
+		init();
+
+		checkAndParseFile();
+
+		message = inputCommandJunitTest(command);
+		
+		return message;
+	}
+	
+	private static String inputCommandJunitTest(String command) {
+
+		String message;
+		String operation; 
+		
+		operation = readUserInput(command);
+		message = parseCommand(operation);
+		
+		return message;
 	}
 
 	// **************************************************************
@@ -102,41 +128,50 @@ public class TextBuddy {
 		}
 	}
 
-	private static void parseCommand(String command) {
-
+	private static String parseCommand(String command) {
+		
+		String message = null;
+		
 		if (checkIsAdd(command)) {
-			executeAddCommand();
+			message = executeAddCommand();
 			
 		} else if (checkIsDisplay(command)) {
-			executeDisplayCommand();
+			message = executeDisplayCommand();
 			
 		} else if (checkIsDelete(command)) {
-			executeDeleteCommand();
+			message = executeDeleteCommand();
 			
 		} else if (checkIsClear(command)) {
-			executeClearCommand();
+			message = executeClearCommand();
 			
 		} else if (checkIsExit(command)) {
 			terminateProgramSuccessfully();
 		} else {
-			outputInvalidCommand();
+			message = outputInvalidCommand();
 		}
+		
+		return message;
 	}
 	
 	// **************************************************************
 	
-	private static void executeAddCommand() {
+	private static String executeAddCommand() {
 		
+		String message;
 		String newItem = inputScanner.nextLine();
 
-		addNewItem(newItem);
+		message = addNewItem(newItem);
 		saveListIntoFile();
+		
+		return message;
 	}
 	
-	private static void executeDisplayCommand() {
-
+	private static String executeDisplayCommand() {
+		
+		String message = null;
+		
 		if (itemList.isEmpty()) {
-			outputEmptyFileMessage();
+			message = outputEmptyFileMessage();
 		} else if (!itemList.isEmpty()) {
 
 			for (int i = 0; i < itemList.size(); i++) {
@@ -144,45 +179,66 @@ public class TextBuddy {
 				String currentItem = itemList.get(i);
 
 				System.out.println(numberingOffset + ". " + currentItem);
+				message += numberingOffset + ". " + currentItem + "\n";
 			}
 		}
+		
+		return message;
 	}
 	
-	private static void executeDeleteCommand() {
+	private static String executeDeleteCommand() {
 		
+		String message;
 		int indexToDelete = inputScanner.nextInt();
 
-		deleteItem(indexToDelete);
+		message = deleteItem(indexToDelete);
 		saveListIntoFile();
+		
+		return message;
 	}
 
-	private static void executeClearCommand() {
+	private static String executeClearCommand() {
 		
-		removeAllItems();
+		String message;
+		message = removeAllItems();
 		saveListIntoFile();
+		
+		return message;
 	}
 	
 	// **************************************************************
 
-	private static void addNewItem(String newItem) {
+	private static String addNewItem(String newItem) {
 
+		String message;
 		String trimmedItem = newItem.trim();
 		itemList.add(trimmedItem);
 
-		successfullyAddMessage(trimmedItem);
+		message = successfullyAddMessage(trimmedItem);
+		
+		return message;
 	}
 	
-	private static void deleteItem(int indexToDelete) {
+	private static String deleteItem(int indexToDelete) {
+		
+		String message;
 		int indexOffset = indexToDelete - 1;
 		String deletedItem = itemList.remove(indexOffset);
 
-		successfullyDeleteMessage(deletedItem);
+		message = successfullyDeleteMessage(deletedItem);
+		
+		return message;
 	}
 
-	private static void removeAllItems() {
+	private static String removeAllItems() {
+		
+		String message;
+		
 		itemList.clear();
 
-		successfullyClearedMessage();
+		message = successfullyClearedMessage();
+		
+		return message;
 	}
 
 	// **************************************************************
@@ -194,6 +250,15 @@ public class TextBuddy {
 		command = inputScanner.next();
 
 		return command;
+	}
+	
+	private static String readUserInput(String command) {
+		
+		inputScanner = new Scanner(command);
+
+		String operation = inputScanner.next();
+
+		return operation;
 	}
 
 	private static void createNewFile(File file) {
@@ -272,34 +337,44 @@ public class TextBuddy {
 		System.exit(1);
 	}
 
-	private static void outputEmptyFileMessage() {
+	private static String outputEmptyFileMessage() {
 		String message = fileName + " is empty";
 		System.out.println(message);
+		
+		return message;
 	}
 
-	private static void outputInvalidCommand() {
+	private static String outputInvalidCommand() {
 		String message = "Invalid command.";
 		System.out.println(message);
+		
+		return message;
 	}
 
-	private static void successfullyAddMessage(String newItem) {
+	private static String successfullyAddMessage(String newItem) {
 		String message = "added to " + fileName;
 		message += ": \"" + newItem + "\"";
 
 		System.out.println(message);
+		
+		return message;
 	}
 
-	private static void successfullyDeleteMessage(String deletedItem) {
+	private static String successfullyDeleteMessage(String deletedItem) {
 		String message = "deleted from " + fileName;
 		message += ": \"" + deletedItem + "\"";
 
 		System.out.println(message);
+		
+		return message;
 	}
 
-	private static void successfullyClearedMessage() {
+	private static String successfullyClearedMessage() {
 		String message = "all content deleted from " + fileName;
 
 		System.out.println(message);
+		
+		return message;
 	}
 
 	// **************************************************************
