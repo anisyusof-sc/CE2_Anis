@@ -23,6 +23,7 @@
  ****************************************************************/
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
@@ -146,7 +147,7 @@ public class TextBuddy {
 			message = executeClearCommand();
 			
 		} else if (checkIsSort(command)) {
-			message = "records sorted.";
+			message = executeSortCommand();
 			
 		} else if (checkIsExit(command)) {
 			terminateProgramSuccessfully();
@@ -205,6 +206,17 @@ public class TextBuddy {
 		
 		String message;
 		message = removeAllItems();
+		saveListIntoFile();
+		
+		return message;
+	}
+	
+	private static String executeSortCommand() {
+		
+		String message;
+		
+		Collections.sort(itemList);
+		message = "records sorted.";
 		saveListIntoFile();
 		
 		return message;
