@@ -1,4 +1,4 @@
-/****************************CS2103T CE1*************************
+/****************************CS2103T CE2*************************
  * Name   : Anis bin Yusof
  * Matric : A0111916M
  * 
@@ -23,6 +23,7 @@
  ****************************************************************/
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import java.io.File;
@@ -34,13 +35,13 @@ import java.io.IOException;
 
 public class TextBuddy {
 
-	private static final String COMMAND_ADD = "add",
-								COMMAND_DISPLAY = "display", 
-								COMMAND_DELETE = "delete",
-								COMMAND_CLEAR = "clear", 
-								COMMAND_EXIT = "exit";
+	private static final String COMMAND_ADD = "add";
+	private static final String	COMMAND_DISPLAY = "display";
+	private static final String COMMAND_DELETE = "delete";
+	private static final String COMMAND_CLEAR = "clear"; 
+	private static final String COMMAND_EXIT = "exit";
 
-	private static ArrayList<String> itemList = null;
+	private static List<String> itemList = null;
 	private static Scanner inputScanner = null;
 	private static String fileName = null;
 
@@ -50,7 +51,7 @@ public class TextBuddy {
 
 		init();
 
-		checkFileExist();
+		checkAndParseFile();
 
 		displayHeader();
 
@@ -74,13 +75,13 @@ public class TextBuddy {
 		inputScanner = new Scanner(System.in);
 	}
 
-	private static void checkFileExist() {
+	private static void checkAndParseFile() {
 
 		File workingFile = new File(fileName);
 
 		if (checkIsFileExist(workingFile)) {
 			itemList = parseFileIntoList(workingFile);
-		} else if (!checkIsFileExist(workingFile)) {
+		} else {
 			createNewFile(workingFile);
 		}
 	}
@@ -96,46 +97,43 @@ public class TextBuddy {
 		String command = readUserInput();
 
 		while (!checkIsExit(command)) {
-			identifyCommand(command);
+			parseCommand(command);
 			command = readUserInput();
 		}
 	}
 
-	private static void identifyCommand(String command) {
+	private static void parseCommand(String command) {
 
 		if (checkIsAdd(command)) {
-			String newItem = inputScanner.nextLine();
-
-			addNewItem(newItem);
-			saveListIntoFile();
+			executeAddCommand();
+			
 		} else if (checkIsDisplay(command)) {
-			displayContent();
+			executeDisplayCommand();
+			
 		} else if (checkIsDelete(command)) {
-			int indexToDelete = inputScanner.nextInt();
-
-			deleteItem(indexToDelete);
-			saveListIntoFile();
+			executeDeleteCommand();
+			
 		} else if (checkIsClear(command)) {
-			removeAllItems();
-			saveListIntoFile();
+			executeClearCommand();
+			
 		} else if (checkIsExit(command)) {
 			terminateProgramSuccessfully();
 		} else {
 			outputInvalidCommand();
 		}
 	}
-
+	
 	// **************************************************************
+	
+	private static void executeAddCommand() {
+		
+		String newItem = inputScanner.nextLine();
 
-	private static void addNewItem(String newItem) {
-
-		String trimmedItem = newItem.trim();
-		itemList.add(trimmedItem);
-
-		successfullyAddMessage(trimmedItem);
+		addNewItem(newItem);
+		saveListIntoFile();
 	}
-
-	private static void displayContent() {
+	
+	private static void executeDisplayCommand() {
 
 		if (itemList.isEmpty()) {
 			outputEmptyFileMessage();
@@ -149,7 +147,31 @@ public class TextBuddy {
 			}
 		}
 	}
+	
+	private static void executeDeleteCommand() {
+		
+		int indexToDelete = inputScanner.nextInt();
 
+		deleteItem(indexToDelete);
+		saveListIntoFile();
+	}
+
+	private static void executeClearCommand() {
+		
+		removeAllItems();
+		saveListIntoFile();
+	}
+	
+	// **************************************************************
+
+	private static void addNewItem(String newItem) {
+
+		String trimmedItem = newItem.trim();
+		itemList.add(trimmedItem);
+
+		successfullyAddMessage(trimmedItem);
+	}
+	
 	private static void deleteItem(int indexToDelete) {
 		int indexOffset = indexToDelete - 1;
 		String deletedItem = itemList.remove(indexOffset);
@@ -183,9 +205,9 @@ public class TextBuddy {
 		}
 	}
 
-	private static ArrayList<String> parseFileIntoList(File file) {
+	private static List<String> parseFileIntoList(File file) {
 
-		ArrayList<String> listOfStrings = new ArrayList<String>();
+		List<String> fileRecords = new ArrayList<String>();
 		Scanner fileScanner = null;
 
 		try {
@@ -194,7 +216,7 @@ public class TextBuddy {
 			while (fileScanner.hasNextLine()) {
 				String currentLine = fileScanner.nextLine();
 				String truncatedLine = removeNumberingFromLine(currentLine);
-				listOfStrings.add(truncatedLine);
+				fileRecords.add(truncatedLine);
 			}
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
@@ -202,7 +224,7 @@ public class TextBuddy {
 			fileScanner.close();
 		}
 
-		return listOfStrings;
+		return fileRecords;
 	}
 
 	private static void saveListIntoFile() {
@@ -231,11 +253,8 @@ public class TextBuddy {
 
 	private static String removeNumberingFromLine(String currentLine) {
 		/*************************************************************
-		 * This method removeNumberingFromLine(String) is to remove any
-		 * preceding numbers from a line. Numbering from the currentLine is not
-		 * needed as numbering for each line will be taken from ArrayList
-		 * indexes instead. e.g. input : "1. little brown fox" output:
-		 * "little brown fox"
+		 * Numbering from the currentLine is not needed as numbering 
+		 * for each line will be taken from ArrayList indexes instead.
 		 *************************************************************/
 
 		int indexOfDot = currentLine.indexOf('.');
