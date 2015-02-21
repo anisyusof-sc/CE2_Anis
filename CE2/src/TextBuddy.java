@@ -37,6 +37,7 @@ public class TextBuddy {
 	private static final String	COMMAND_DISPLAY = "display";
 	private static final String COMMAND_DELETE = "delete";
 	private static final String COMMAND_CLEAR = "clear"; 
+	private static final String COMMAND_SORT = "sort"; 
 	private static final String COMMAND_EXIT = "exit";
 
 	private static List<String> itemList = null;
@@ -143,6 +144,9 @@ public class TextBuddy {
 			
 		} else if (checkIsClear(command)) {
 			message = executeClearCommand();
+			
+		} else if (checkIsSort(command)) {
+			message = "records sorted.";
 			
 		} else if (checkIsExit(command)) {
 			terminateProgramSuccessfully();
@@ -397,6 +401,10 @@ public class TextBuddy {
 
 	private static boolean checkIsClear(String command) {
 		return command.equals(COMMAND_CLEAR);
+	}
+	
+	private static boolean checkIsSort(String command) {
+		return command.equals(COMMAND_SORT);
 	}
 
 	private static boolean checkIsExit(String command) {
