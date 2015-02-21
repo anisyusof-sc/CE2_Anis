@@ -1,12 +1,14 @@
 
 import static org.junit.Assert.*;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class TextBuddyTest {
-
-	private String result = null;
+	
 	private String newLine = "\n";
 	private String[] fileNameArr;
 	
@@ -19,12 +21,12 @@ public class TextBuddyTest {
 	
 	private void executeUnitTestEquals(String[] fileNameArr, String testCaseInput, String expectedOutput) {
 		
-		result = TextBuddy.executeJunitTest(fileNameArr, testCaseInput);
+		String result = TextBuddy.executeJunitTest(fileNameArr, testCaseInput);
 		assertEquals(expectedOutput, result);
 	}
 	
 	@Test
-	public void testAddItem1() {
+	public void test1AddItem() {
 		
 		String testCaseInput = "add gorilla";
 		String expectedOutput = "added to mytextfile.txt: \"gorilla\"";
@@ -33,7 +35,7 @@ public class TextBuddyTest {
 	}
 
 	@Test
-	public void testSortCommand1() {
+	public void test2SortItem() {
 		
 		String testCaseInput = "sort";
 		String expectedOutput = "records sorted.";
@@ -42,11 +44,20 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void testDisplaySortedList1() {
+	public void test3DisplayListOfItem() {
 		
 		String testCaseInput = "display";
 		String expectedOutput = "1. gorilla" + newLine;
 					
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
+	}
+	
+	@Test
+	public void test4AddItem() {
+		
+		String testCaseInput = "add anaconda";
+		String expectedOutput = "added to mytextfile.txt: \"anaconda\"";
+		
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
 }
