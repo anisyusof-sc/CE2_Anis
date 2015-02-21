@@ -151,7 +151,7 @@ public class TextBuddy {
 			message = executeSortCommand();
 			
 		} else if (checkIsSearch(command)) {
-			message = "1. cobra son\n";
+			message = executeSearchCommand();
 			
 		} else if (checkIsExit(command)) {
 			terminateProgramSuccessfully();
@@ -227,6 +227,16 @@ public class TextBuddy {
 		return message;
 	}
 	
+	private static String executeSearchCommand() {
+		
+		String message;
+		String search = inputScanner.nextLine();
+		
+		message = findItemInList(search);
+		
+		return message;
+	}
+	
 	// **************************************************************
 
 	private static String addNewItem(String newItem) {
@@ -258,6 +268,31 @@ public class TextBuddy {
 		itemList.clear();
 
 		message = successfullyClearedMessage();
+		
+		return message;
+	}
+	
+	private static String findItemInList(String search) {
+		
+		String message = "";
+		
+		int searchCount = 0;
+		int numberingOffset = searchCount + 1;
+		
+		for(int i = 0; i < itemList.size(); i++) {
+			
+			String currentRecord = itemList.get(i);
+			
+			if(checkIsKeywordExistInRecord(currentRecord, search)) {
+				
+				message += numberingOffset + ". " + currentRecord + "\n";
+				
+				searchCount++;
+				numberingOffset = searchCount + 1;
+			}
+		}
+		
+		searchResultMessage(message);
 		
 		return message;
 	}
@@ -405,6 +440,13 @@ public class TextBuddy {
 		
 		return message;
 	}
+	
+	private static String searchResultMessage(String message) {
+		
+		System.out.println(message);
+		
+		return message;
+	}
 
 	// **************************************************************
 
@@ -438,5 +480,13 @@ public class TextBuddy {
 
 	private static boolean checkIsExit(String command) {
 		return command.equals(COMMAND_EXIT);
+	}
+	
+	private static boolean checkIsKeywordExistInRecord(String record, String keyword) {
+		return record.contains(keyword);
+	}
+	
+	private static boolean checkIsEmptyString(String str) {
+		return str.equals("");
 	}
 }
