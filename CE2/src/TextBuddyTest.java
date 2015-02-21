@@ -165,4 +165,13 @@ public class TextBuddyTest {
 					
 		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
 	}
+	
+	@Test
+	public void testB7SearchItem() {
+										
+		String testCaseInput = "search anaconda";
+		String expectedOutput = "No record(s) found.";
+					
+		executeUnitTestEquals(fileNameArr, testCaseInput, expectedOutput);
+	}
 }
