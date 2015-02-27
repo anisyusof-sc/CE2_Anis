@@ -26,20 +26,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.FileOutputStream;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class TextBuddy {
 
 	private static final String COMMAND_ADD = "add";
-	private static final String	COMMAND_DISPLAY = "display";
+	private static final String COMMAND_DISPLAY = "display";
 	private static final String COMMAND_DELETE = "delete";
-	private static final String COMMAND_CLEAR = "clear"; 
-	private static final String COMMAND_SORT = "sort"; 
-	private static final String COMMAND_SEARCH = "search"; 
+	private static final String COMMAND_CLEAR = "clear";
+	private static final String COMMAND_SORT = "sort";
+	private static final String COMMAND_SEARCH = "search";
 	private static final String COMMAND_EXIT = "exit";
 
 	private static List<String> itemList = null;
@@ -60,13 +62,13 @@ public class TextBuddy {
 
 		terminateProgramSuccessfully();
 	}
-	
+
 	// **************************************************************
-	
+
 	public static String executeJunitTest(String[] fileNameArr, String command) {
 
 		String message;
-		
+
 		checkValidArgsLength(fileNameArr);
 
 		init();
@@ -74,18 +76,18 @@ public class TextBuddy {
 		checkAndParseFile();
 
 		message = inputCommandJunitTest(command);
-		
+
 		return message;
 	}
-	
+
 	private static String inputCommandJunitTest(String command) {
 
 		String message;
-		String operation; 
-		
+		String operation;
+
 		operation = readUserInput(command);
 		message = parseCommand(operation);
-		
+
 		return message;
 	}
 
@@ -132,54 +134,54 @@ public class TextBuddy {
 	}
 
 	private static String parseCommand(String command) {
-		
+
 		String message = null;
-		
+
 		if (checkIsAdd(command)) {
 			message = executeAddCommand();
-			
+
 		} else if (checkIsDisplay(command)) {
 			message = executeDisplayCommand();
-			
+
 		} else if (checkIsDelete(command)) {
 			message = executeDeleteCommand();
-			
+
 		} else if (checkIsClear(command)) {
 			message = executeClearCommand();
-			
+
 		} else if (checkIsSort(command)) {
 			message = executeSortCommand();
-			
+
 		} else if (checkIsSearch(command)) {
 			message = executeSearchCommand();
-			
+
 		} else if (checkIsExit(command)) {
 			terminateProgramSuccessfully();
-			
+
 		} else {
 			message = outputInvalidCommand();
 		}
-		
+
 		return message;
 	}
-	
+
 	// **************************************************************
-	
+
 	private static String executeAddCommand() {
-		
+
 		String message;
 		String newItem = inputScanner.nextLine();
 
 		message = addNewItem(newItem);
 		saveListIntoFile();
-		
+
 		return message;
 	}
-	
+
 	private static String executeDisplayCommand() {
-		
+
 		String message = "";
-		
+
 		if (itemList.isEmpty()) {
 			message = outputEmptyFileMessage();
 		} else if (!itemList.isEmpty()) {
@@ -192,51 +194,51 @@ public class TextBuddy {
 				message += numberingOffset + ". " + currentItem + "\n";
 			}
 		}
-		
+
 		return message;
 	}
-	
+
 	private static String executeDeleteCommand() {
-		
+
 		String message;
 		int indexToDelete = inputScanner.nextInt();
 
 		message = deleteItem(indexToDelete);
 		saveListIntoFile();
-		
+
 		return message;
 	}
 
 	private static String executeClearCommand() {
-		
+
 		String message;
 		message = removeAllItems();
 		saveListIntoFile();
-		
+
 		return message;
 	}
-	
+
 	private static String executeSortCommand() {
-		
+
 		String message;
-		
+
 		Collections.sort(itemList);
 		message = successfullySortedMessage();
 		saveListIntoFile();
-		
+
 		return message;
 	}
-	
+
 	private static String executeSearchCommand() {
-		
+
 		String message;
 		String search = inputScanner.nextLine();
-		
+
 		message = findItemInList(search);
-		
+
 		return message;
 	}
-	
+
 	// **************************************************************
 
 	private static String addNewItem(String newItem) {
@@ -246,55 +248,55 @@ public class TextBuddy {
 		itemList.add(trimmedItem);
 
 		message = successfullyAddMessage(trimmedItem);
-		
+
 		return message;
 	}
-	
+
 	private static String deleteItem(int indexToDelete) {
-		
+
 		String message;
 		int indexOffset = indexToDelete - 1;
 		String deletedItem = itemList.remove(indexOffset);
 
 		message = successfullyDeleteMessage(deletedItem);
-		
+
 		return message;
 	}
 
 	private static String removeAllItems() {
-		
+
 		String message;
-		
+
 		itemList.clear();
 
 		message = successfullyClearedMessage();
-		
+
 		return message;
 	}
-	
-	private static String findItemInList (String search) {
-		
+
+	private static String findItemInList(String search) {
+
 		String message = "";
 		String trimmedSearch = search.trim();
-		
+
 		int searchCount = 0;
 		int numberingOffset = searchCount + 1;
-		
-		for(int i = 0; i < itemList.size(); i++) {
-			
+
+		for (int i = 0; i < itemList.size(); i++) {
+
 			String currentRecord = itemList.get(i);
 
-			if(checkIsKeywordExistInRecord(currentRecord, trimmedSearch)) {
-				
+			if (checkIsKeywordExistInRecord(currentRecord, trimmedSearch)) {
+
 				message += numberingOffset + ". " + currentRecord + "\n";
-				
+
 				searchCount++;
 				numberingOffset = searchCount + 1;
 			}
 		}
-		
+
 		message = searchResultMessage(message);
-		
+
 		return message;
 	}
 
@@ -308,9 +310,9 @@ public class TextBuddy {
 
 		return command;
 	}
-	
+
 	private static String readUserInput(String command) {
-		
+
 		inputScanner = new Scanner(command);
 
 		String operation = inputScanner.next();
@@ -375,8 +377,8 @@ public class TextBuddy {
 
 	private static String removeNumberingFromLine(String currentLine) {
 		/*************************************************************
-		 * Numbering from the currentLine is not needed as numbering 
-		 * for each line will be taken from ArrayList indexes instead.
+		 * Numbering from the currentLine is not needed as numbering for each
+		 * line will be taken from ArrayList indexes instead.
 		 *************************************************************/
 
 		int indexOfDot = currentLine.indexOf('.');
@@ -397,14 +399,14 @@ public class TextBuddy {
 	private static String outputEmptyFileMessage() {
 		String message = fileName + " is empty";
 		System.out.println(message);
-		
+
 		return message;
 	}
 
 	private static String outputInvalidCommand() {
 		String message = "Invalid command.";
 		System.out.println(message);
-		
+
 		return message;
 	}
 
@@ -413,7 +415,7 @@ public class TextBuddy {
 		message += ": \"" + newItem + "\"";
 
 		System.out.println(message);
-		
+
 		return message;
 	}
 
@@ -422,7 +424,7 @@ public class TextBuddy {
 		message += ": \"" + deletedItem + "\"";
 
 		System.out.println(message);
-		
+
 		return message;
 	}
 
@@ -430,26 +432,26 @@ public class TextBuddy {
 		String message = "all content deleted from " + fileName;
 
 		System.out.println(message);
-		
+
 		return message;
 	}
-	
+
 	private static String successfullySortedMessage() {
 		String message = "records sorted.";
 
 		System.out.println(message);
-		
+
 		return message;
 	}
-	
+
 	private static String searchResultMessage(String message) {
-		
-		if(checkIsEmptyString(message)) {
+
+		if (checkIsEmptyString(message)) {
 			message = "No record(s) found.";
 		}
-		
+
 		System.out.println(message);
-		
+
 		return message;
 	}
 
@@ -474,11 +476,11 @@ public class TextBuddy {
 	private static boolean checkIsClear(String command) {
 		return command.equals(COMMAND_CLEAR);
 	}
-	
+
 	private static boolean checkIsSort(String command) {
 		return command.equals(COMMAND_SORT);
 	}
-	
+
 	private static boolean checkIsSearch(String command) {
 		return command.equals(COMMAND_SEARCH);
 	}
@@ -486,11 +488,12 @@ public class TextBuddy {
 	private static boolean checkIsExit(String command) {
 		return command.equals(COMMAND_EXIT);
 	}
-	
-	private static boolean checkIsKeywordExistInRecord(String record, String keyword) {
+
+	private static boolean checkIsKeywordExistInRecord(String record,
+			String keyword) {
 		return record.contains(keyword);
 	}
-	
+
 	private static boolean checkIsEmptyString(String str) {
 		return str.isEmpty();
 	}
